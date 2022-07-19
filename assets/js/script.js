@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function(){
     for (let button of buttons){
         button.addEventListener('click', function(){
             if (this.getAttribute('data-type') === 'submit') {
-                alert('You Clicked Submit');
+                checkAnswer();
             } else {
                 let gameType = this.getAttribute('data-type');
                 runGame(gameType);
@@ -30,13 +30,40 @@ function runGame(gameType){
         throw `unknown game type: ${gameType}. Aborting!`;
     }
 }
-
+/**
+ * Checks if the users entered answer is correct against the calculated answer
+ */
 function checkAnswer(){
+
+    let userAnswer = parseInt(document.getElementById('answer-box').value);
+    let calculateAnswer = calculateCorrectAnswer();
+    let isCorrect = userAnswer === calculateAnswer[0];
+
+    if(isCorrect){
+        alert("Welldone you got it!");
+    } else {
+        alert(`oh dear, better luck next time ${calculateAnswer[0]}.`)
+    }
 
 }
 
+/**
+ * Get the operands(the numbers) and the operator(plus, miuns, times, divide)
+ * directly from the DOM and return the correct answer
+ */
 function calculateCorrectAnswer(){
 
+    let operand1 = parseInt(document.getElementById('operand1').innerText);
+    let operand2 = parseInt(document.getElementById('operand2').innerText);
+    let operator = document.getElementById('operator').innerText;
+
+    if (operator = '+') {
+        return [operand1 + operand2, 'addition'];
+    } else {
+        alert(`unimplimented operator ${operator}`);
+        throw `unimplimented operator ${operator}. Aborting!`;
+    }
+    runGame(calculateAnswer[1]);
 }
 
 function incrementScore(){
