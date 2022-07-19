@@ -1,24 +1,33 @@
-document.addEventListener('DOMContentLoaded', function(){
+document.addEventListener("DOMContentLoaded", function() {
     let buttons = document.getElementsByTagName("button");
 
-    for (let button of buttons){
-        button.addEventListener('click', function(){
-            if (this.getAttribute('data-type') === 'submit') {
+    for (let button of buttons) {
+        button.addEventListener("click", function() {
+            if (this.getAttribute("data-type") === "submit") {
                 checkAnswer();
             } else {
-                let gameType = this.getAttribute('data-type');
+                let gameType = this.getAttribute("data-type");
                 runGame(gameType);
             }
-        })
+        });
     }
 
-    runGame('addition');
+    document.getElementById("answer-box").addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {
+            checkAnswer();
+        }
+    });
+
+    runGame("addition");
+
 });
 /**
  * The main game loop called when the script is first loaded
  * and after the users answer has been processed
  */
 function runGame(gameType){
+    document.getElementById("answer-box").value ="";
+    document.getElementById("answer-box").focus();
     // create 2 random numbers between 1 and 25
     let num1 = Math.floor(Math.random() * 21) +1;
     let num2 = Math.floor(Math.random() * 21) +1;
